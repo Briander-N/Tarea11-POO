@@ -13,5 +13,5 @@ public class EdadInvalidaException extends Exception{
         return edadIngresada;
 
     }
-    
+
 }
