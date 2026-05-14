@@ -1,13 +1,41 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.util.Scanner;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+void main() {
+    Scanner sc = new Scanner(System.in);
+
+    try{
+        // Leer moneda origen
+        System.out.print("Moneda origen (USD/EUR): ");
+        String origen = sc.nextLine().toUpperCase();
+        // Leer moneda destino
+        System.out.print("Moneda destino (USD/EUR): ");
+        String destino = sc.nextLine().toUpperCase();
+        // Leer cantidad como String
+        System.out.print("Ingrese cantidad: ");
+        String textoCantidad = sc.nextLine();
+        // Convertir String → double
+        double cantidad = Double.parseDouble(textoCantidad);
+        // Llamar método convertir
+        double resultado =
+                ConversorMonedas.convertir(origen, destino, cantidad);
+        // Mostrar resultado con 2 decimales
+        System.out.println("Resultado: " + String.format("%.2f", resultado));
+        // Error si el usuario escribe texto inválido
+    } catch (NumberFormatException e){
+        System.out.println("Error: debe ingresar un número válido.");
     }
+    // Error de moneda no soportada
+    catch (MonedaNoSoportadaException e) {
+
+        System.out.println("Error de moneda: " + e.getMessage());
+    }
+    // Siempre se ejecuta
+    finally {
+
+        System.out.println("Programa finalizado.");
+        sc.close();
+    }
+
 }
